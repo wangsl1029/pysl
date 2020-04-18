@@ -55,13 +55,13 @@ def paramiko_ssh_key(ip, port, username, key_file, command):
         print(error.decode('utf-8'))
     client.close()
 
-def paramiko_upload_file(ip, port, username, key_file, local_path, remote_path):
+def paramiko_upload_file(ip, port, username, password, local_path, remote_path):
     if not os.path.isfile(local_path):
         print(local_path + "文件不存在")
         sys.exit(1)
     try:
         s = paramiko.Transport((ip, port))
-        s.connect(username=username, key_file=key_file)
+        s.connect(username=username, password=password)
     except Exception as e:
         print(e)
         sys.exit(1)
@@ -87,4 +87,4 @@ if __name__ == "__main__":
     remote_path = '/opt/res.txt'
     # paramiko_ssh_ip(ip, port, username, password, command)
     # paramiko_ssh_key(ip, port, username, key_file, command)
-    paramiko_upload_file(ip, port, username, key_file, local_path, remote_path)
+    paramiko_upload_file(ip, port, username, password, local_path, remote_path)
